@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quidditch Manager - Login</title>
+    <data-th-include fragment="bootstrap-fragment :: head"></data-th-include>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="center-container">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-dark text-light">
+                <h4 class="mb-0">Quidditch Manager Login</h4>
+            </div>
+            <div class="card-body">
+                <form data-th-action="@{/login}" method="post" data-th-object="${user}">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" class="form-control" id="username" name="username" data-th-field="*{username}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" id="password" name="password" data-th-field="*{password}" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-magic">Login</button>
+                </form>
+            </div>
+            <div data-th-if="${error}" class="alert alert-danger" role="alert">
+                <strong data-th-text="${error}"></strong>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
