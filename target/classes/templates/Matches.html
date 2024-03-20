@@ -23,7 +23,7 @@
                     <div th:each="game : ${matches}">
                         <tr>
                             <td>
-                                <a href="team?id=" th:text="${game.getTeams().first.getName()}"></a>
+                                <a data-th-attr="data-url=@{/team?id=} + ${game.getTeams().first.id}" onclick="navigateTo(event)" th:text="${game.getTeams().first.getName()}"></a>
                             </td>
                             <td>
                                 <span th:text="${game.getStadium().getName()}"></span>
@@ -32,7 +32,7 @@
                                 <span th:text="${game.getDate()}"></span>
                             </td>
                             <td>
-                                <a href="team?id=" th:text="${game.getTeams().get(1).getName()}"></a>
+                                <a data-th-attr="data-url=@{/team?id=} + ${game.getTeams().get(1).id}" onclick="navigateTo(event)" th:text="${game.getTeams().get(1).getName()}"></a>
                             </td>
                         </tr>
                     </div>
@@ -41,3 +41,13 @@
         </div>
     </div>
 </body>
+
+<script data-th-inline="javascript">
+    function navigateTo(event) {
+        var url = event.currentTarget.dataset.url;
+        if (url) {
+            window.location.href = url;
+        }
+    }
+</script>
+</html>

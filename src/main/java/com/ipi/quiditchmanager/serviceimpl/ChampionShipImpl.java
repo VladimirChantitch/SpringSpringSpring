@@ -6,6 +6,8 @@ import com.ipi.quiditchmanager.service.ChampionshipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ChampionShipImpl implements ChampionshipService {
     @Autowired
@@ -13,5 +15,9 @@ public class ChampionShipImpl implements ChampionshipService {
     @Override
     public ChampionShip addChampionship(ChampionShip championShip) {
         return  championshipDao.save(championShip);
+    }
+    @Override
+    public List<ChampionShip> getChampionShips() {
+        return  championshipDao.findAll();
     }
 }
