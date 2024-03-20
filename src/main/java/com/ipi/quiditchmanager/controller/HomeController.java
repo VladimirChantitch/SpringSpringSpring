@@ -44,17 +44,34 @@ public class HomeController {
         User user = (User)session.getAttribute("user");
 
         if (user != null){
+            model.addAttribute("loggedIn", true);
             return "Home";
         }
         else
         {
+            model.addAttribute("loggedIn", false);
             return "Home";
-            //return "redirect:/login";
         }
+    }
+
+    @GetMapping("/teams")
+    public String teamsPage() {
+        return "Teams";
+    }
+
+    @GetMapping("/championships")
+    public String championshipsPage() {
+        return "Championships";
+    }
+
+    @GetMapping("/games")
+    public String gamesPage() {
+        return "Games";
     }
 
     @GetMapping("/login")
     public String showLoginForm(Model model) {
+        model.addAttribute("loggedIn", false);
         model.addAttribute("user", new User());
         return "Login";
     }

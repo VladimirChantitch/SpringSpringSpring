@@ -12,24 +12,32 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto"> <!-- Using ml-auto to push the items to the right -->
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home</a>
+                    <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Teams</a>
+                    <a class="nav-link" href="/teams">Teams</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Championships</a>
+                    <a class="nav-link" href="/championships">Championships</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Games</a>
+                    <a class="nav-link" href="/games">Games</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
+                <li class="nav-item" data-th-if="${!loggedIn}">
+                    <a class="nav-link btn btn-outline-light" href="/login">Login</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+<div class="container-fluid">
+    <div class="row justify-content-end">
+        <div class="col-auto text-right">
+            <p data-th-if="${loggedIn}" class="text-success">You are connected</p>
+            <p data-th-if   ="${!loggedIn}" class="text-danger">You are not connected</p>
+        </div>
+    </div>
+</div>
 </body>
 
 
