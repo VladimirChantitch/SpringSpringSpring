@@ -79,4 +79,24 @@ public class TeamImpl implements TeamService {
     public void update(Team team) {
         teamDao.save(team);
     }
+
+    @Override
+    public void create(String name, String country) {
+        Team team = new Team();
+        team.setName((name));
+        team.setCountry(countryDao.findByName(country));
+    }
+
+    @Override
+    public Team create() {
+        Team team = teamDao.findByName("set a name please");
+        if (team != null)
+            return team;
+        
+        team = new Team();
+        team.setName("set a name please");
+        team.setCountry(countryDao.findByName("France"));
+        teamDao.save(team);
+        return teamDao.findByName("set a name please");
+    }
 }

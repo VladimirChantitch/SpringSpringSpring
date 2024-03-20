@@ -64,7 +64,12 @@ public class HomeController {
         model.addAttribute("loggedIn",
                 getLogged(session));
         model.addAttribute("isActive", -1);
-        model.addAttribute("team", teamService.getTeamById(id));
+        if (id >= 0)
+            model.addAttribute("team", teamService.getTeamById(id));
+        else{
+            Team newTeam = teamService.create();
+            model.addAttribute("team", newTeam);
+        }
         model.addAttribute("countries", countryService.getCountries());
 
         return "Team";
@@ -74,8 +79,10 @@ public class HomeController {
     public String updateTeamDetails(@RequestParam("id") Long id,
                                     @RequestParam("name") String name,
                                     @RequestParam("country") String country){
-
-        teamService.updateTeamDetails(id, name, country);
+        if (id == -1)
+            teamService.create(name, country);
+        else
+            teamService.updateTeamDetails(id, name, country);
         return "redirect:/teams";
     }
 
@@ -83,6 +90,11 @@ public class HomeController {
     public String updateTeamDetails(@RequestParam("id") Long id){
         teamService.deleteById(id);
         return "redirect:/teams";
+    }
+
+    @PostMapping("/team/create")
+    public String createTeam(){
+        return "redirect:/team?id=-1";
     }
 
     @GetMapping("/login")

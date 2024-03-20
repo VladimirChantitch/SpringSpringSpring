@@ -15,4 +15,8 @@ public interface TeamService {
     void deleteById(Long id);
 
     void update(Team team);
+
+    void create(String name, String country);
+
+    Team create();
 }
