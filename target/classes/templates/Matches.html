@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head data-th-replace="~{bootstrap-fragment :: head}">
+<body>
+<!--<div class="container" data-th-insert="~{navbar-fragment}"></div>-->
+<div class="center-container">
+            <div class="container">
+                <form th:action="@{/matches}" method="get">
+                    <label for="date">Select Date:</label>
+                    <input type="date" id="date" name="date">
+                    <button type="submit">Filter</button>
+                </form>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Team 1</th>
+                            <th>Stadium</th>
+                            <th>Date</th>
+                            <th>Team 2</th>
+                        </tr>
+                    </thead>
+                <tbody>
+                    <div th:each="game : ${matches}">
+                        <tr>
+                            <td>
+                                <a href="team?id=" th:text="${game.getTeams().first.getName()}"></a>
+                            </td>
+                            <td>
+                                <span th:text="${game.getStadium().getName()}"></span>
+                            </td>
+                            <td>
+                                <span th:text="${game.getDate()}"></span>
+                            </td>
+                            <td>
+                                <a href="team?id=" th:text="${game.getTeams().get(1).getName()}"></a>
+                            </td>
+                        </tr>
+                    </div>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
