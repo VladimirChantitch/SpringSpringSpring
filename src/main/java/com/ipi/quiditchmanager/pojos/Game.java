@@ -16,7 +16,7 @@ public class Game {
     @ManyToMany
     private List<Team> teams;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
     public Stadium getStadium() {
         return stadium;

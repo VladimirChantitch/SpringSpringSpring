@@ -4,6 +4,7 @@ import com.ipi.quiditchmanager.pojos.*;
 import com.ipi.quiditchmanager.service.*;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class HomeController {
@@ -75,4 +77,23 @@ public class HomeController {
             return "Login";
         }
     }
+
+    @GetMapping("/matches")
+    public String showMatches(Model model, @RequestParam(name = "date", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date date) {
+        List<Game> games;
+        if (date != null) {
+            // Fetch games for the selected date
+            games = matchService.getGamesByDate(date);
+            for (Game game : games){
+                System.out.println("Hello world  2"+game.getDate());
+            }
+        } else {
+            // If no date is selected, fetch all games
+            games = matchService.getGames();
+        }
+        model.addAttribute("matches", games);
+        return "Matches";
+    }
+
+
 }
