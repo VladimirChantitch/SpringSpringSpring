@@ -41,37 +41,43 @@ public class HomeController {
 
     @GetMapping(value = "/")
     public String home(HttpSession session, ModelMap model) {
-        User user = (User)session.getAttribute("user");
-
-        if (user != null){
-            model.addAttribute("loggedIn", true);
-            return "Home";
-        }
-        else
-        {
-            model.addAttribute("loggedIn", false);
-            return "Home";
-        }
+        model.addAttribute("loggedIn",
+                getLogged(session));
+        model.addAttribute("isActive", 0);
+        return "Home";
     }
 
     @GetMapping("/teams")
-    public String teamsPage() {
+    public String teamsPage(HttpSession session, ModelMap model) {
+        model.addAttribute("loggedIn",
+                getLogged(session));
+        model.addAttribute("isActive", 1);
+        model.addAttribute("teams", teamService.getTeams());
+        //model.addAttribute("navActivatedId", 5);
         return "Teams";
     }
 
     @GetMapping("/championships")
-    public String championshipsPage() {
+    public String championshipsPage(HttpSession session, ModelMap model) {
+        model.addAttribute("loggedIn",
+                getLogged(session));
+        model.addAttribute("isActive", 2);
         return "Championships";
     }
 
     @GetMapping("/games")
-    public String gamesPage() {
+    public String gamesPage(HttpSession session, ModelMap model) {
+        model.addAttribute("loggedIn",
+                getLogged(session));
+        model.addAttribute("isActive", 3);
         return "Games";
     }
 
     @GetMapping("/login")
-    public String showLoginForm(Model model) {
-        model.addAttribute("loggedIn", false);
+    public String showLoginForm(HttpSession session, Model model) {
+        model.addAttribute("loggedIn",
+                getLogged(session));
+        model.addAttribute("isActive", 4);
         model.addAttribute("user", new User());
         return "Login";
     }
@@ -91,5 +97,10 @@ public class HomeController {
             model.addAttribute("user", new User());
             return "Login";
         }
+    }
+
+    private boolean getLogged(HttpSession session){
+        User user = (User)session.getAttribute("user");
+        return user != null;
     }
 }

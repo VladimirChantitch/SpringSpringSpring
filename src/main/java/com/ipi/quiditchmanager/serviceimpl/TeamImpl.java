@@ -6,6 +6,8 @@ import com.ipi.quiditchmanager.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TeamImpl implements TeamService {
     @Autowired
@@ -13,5 +15,10 @@ public class TeamImpl implements TeamService {
     @Override
     public Team addTeam(Team team) {
         return teamDao.save(team);
+    }
+
+    @Override
+    public List<Team> getTeams() {
+        return teamDao.findAll();
     }
 }

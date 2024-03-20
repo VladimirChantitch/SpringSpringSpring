@@ -11,19 +11,19 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto"> <!-- Using ml-auto to push the items to the right -->
-                <li class="nav-item active">
+                <li class="nav-item" data-th-classappend="${isActive == 0 ? 'active' : ''}">
                     <a class="nav-link" href="/">Home</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" data-th-classappend="${isActive == 1 ? 'active' : ''}">
                     <a class="nav-link" href="/teams">Teams</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" data-th-classappend="${isActive == 2 ? 'active' : ''}">
                     <a class="nav-link" href="/championships">Championships</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" data-th-classappend="${isActive == 3 ? 'active' : ''}">
                     <a class="nav-link" href="/games">Games</a>
                 </li>
-                <li class="nav-item" data-th-if="${!loggedIn}">
+                <li class="nav-item" data-th-if="${!loggedIn}" data-th-classappend="${isActive == 4 ? 'active' : ''}">
                     <a class="nav-link btn btn-outline-light" href="/login">Login</a>
                 </li>
             </ul>
