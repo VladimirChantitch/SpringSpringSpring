@@ -17,7 +17,6 @@
     </div>
 
     <div class="container">
-        <h2>Games list</h2>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -43,6 +42,7 @@
             </tbody>
         </table>
     </div>
+    <h2>Games list</h2>
     <table class="table table-striped">
             <thead>
             <tr>
@@ -56,7 +56,7 @@
             <div th:each="game : ${championShip.getGames()}">
                 <tr>
                     <td>
-                        <a href="team?id=" th:text="${game.getTeams().first.getName()}"></a>
+                        <a data-th-attr="data-url=@{/team?id=} + ${game.getTeams().first.id}" onclick="navigateTo(event)" th:text="${game.getTeams().first.getName()}"></a>
                     </td>
                     <td>
                         <span th:text="${game.getStadium().getName()}"></span>
@@ -65,7 +65,25 @@
                         <span th:text="${game.getDate()}"></span>
                     </td>
                     <td>
-                        <a href="team?id=" th:text="${game.getTeams().get(1).getName()}"></a>
+                        <a data-th-attr="data-url=@{/team?id=} + ${game.getTeams().get(1).id}" onclick="navigateTo(event)" th:text="${game.getTeams().get(1).getName()}"></a>
+                    </td>
+                </tr>
+            </div>
+            </tbody>
+        </table>
+    </div>
+    <h2>Participating country</h2>
+    <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <div th:each="country : ${championShip.getParticipatingCountries()}">
+                <tr>
+                    <td>
+                        <span th:text="${country.getName()}"></span>
                     </td>
                 </tr>
             </div>
@@ -73,3 +91,13 @@
         </table>
     </div>
 </body>
+
+<script data-th-inline="javascript">
+    function navigateTo(event) {
+        var url = event.currentTarget.dataset.url;
+        if (url) {
+            window.location.href = url;
+        }
+    }
+</script>
+</html>
