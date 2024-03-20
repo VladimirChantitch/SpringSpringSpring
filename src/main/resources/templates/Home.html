@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title></title>
-    <data-th-include  fragment="bootstrap-fragment :: head"></data-th-include >
-    <link rel="stylesheet" href="@{/css/style.css}">
+<head data-th-replace="~{bootstrap-fragment :: head}">
+
 </head>
 <body>
-    <data-th-include fragment="navbar-fragment"></data-th-include>
+    <div class="container" data-th-insert="~{navbar-fragment}"></div>
 </body>
 </html>
