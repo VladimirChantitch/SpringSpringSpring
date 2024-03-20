@@ -99,20 +99,6 @@ public class LocalDBInitializerController {
         bulgaria.setTeams(Collections.singletonList(vratsaVultures));
         norway.setTeams(Collections.singletonList(karasjokKites));
 
-// Create and persist championship
-        ChampionShip europeChampionShip = new ChampionShip("Europ Quiditch Cup",
-                "europ_cup.logo",
-                new Date(2024, 6, 12),
-                new Date(2024, 7, 20),
-                "tournament",
-                100000000,
-                0,
-                Arrays.asList(france, england, irland, luxembourg, bulgaria, norway),
-                Arrays.asList(quiberonQuafflePunchers, barnton, lancashire, bigonVillebombers, cork, vratsaVultures, karasjokKites, beauxBatons)
-        );
-
-        championshipService.addChampionship(europeChampionShip);
-
 // Create and persist matches
         Game quarter0Match = new Game(trilleniumStadium, Arrays.asList(quiberonQuafflePunchers, barnton), new Date(2024, 6, 12));
         Game quarter1Match = new Game(germanNational, Arrays.asList(lancashire, bigonVillebombers),new Date(2024, 6, 14));
@@ -123,5 +109,32 @@ public class LocalDBInitializerController {
         matchService.addMatch(quarter1Match);
         matchService.addMatch(quarter2Match);
         matchService.addMatch(quarter3Match);
+
+// Create and persist championship
+        ChampionShip europeChampionShip = new ChampionShip("Europ Quiditch Cup",
+                "europ_cup.logo",
+                new Date(2024, 6, 11),
+                new Date(2024, 6, 15),
+                "tournament",
+                100000000,
+                0,
+                Arrays.asList(france, england, irland, luxembourg, bulgaria, norway),
+                Arrays.asList(quiberonQuafflePunchers, barnton, lancashire, bigonVillebombers, cork, vratsaVultures, karasjokKites, beauxBatons),
+                Arrays.asList(quarter0Match, quarter1Match)
+        );
+        ChampionShip derby = new ChampionShip("Derby",
+                "derby.logo",
+                new Date(2024, 6, 15),
+                new Date(2024, 6, 19),
+                "tournament",
+                100000000,
+                0,
+                Arrays.asList(france, england, irland, luxembourg, bulgaria, norway),
+                Arrays.asList(quiberonQuafflePunchers, barnton, lancashire, bigonVillebombers, cork, vratsaVultures, karasjokKites, beauxBatons),
+                Arrays.asList(quarter2Match, quarter3Match)
+        );
+
+        championshipService.addChampionship(europeChampionShip);
+        championshipService.addChampionship(derby);
     }
 }

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head data-th-replace="~{bootstrap-fragment :: head}">
+<body>
+    <div class="container" data-th-insert="~{navbar-fragment}"></div>
+    <div class="center-container">
+        <form th:action="@{/championships}" method="get">
+            <select name="championship">
+                <option th:each="championship : ${championShips}"
+                        th:value="${championship.getName()}"
+                        th:text="${championship.getName()}"
+                        th:selected="${championship.getName() == championShip?.name}">
+                </option>
+            </select>
+            <button type="submit" >Filter</button>
+        </form>
+    </div>
+
+    <div class="container">
+        <h2>Games list</h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Start date</th>
+                <th>End start</th>
+            </tr>
+            </thead>
+            <tbody>
+            <div>
+                <tr>
+                    <td>
+                        <a th:text="${championShip.getName()}"></a>
+                    </td>
+                    <td>
+                        <span th:text="${championShip.getStartDate()}"></span>
+                    </td>
+                    <td>
+                        <span th:text="${championShip.getEndDate()}"></span>
+                    </td>
+                </tr>
+            </div>
+            </tbody>
+        </table>
+    </div>
+    <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Team 1</th>
+                <th>Stadium</th>
+                <th>Date</th>
+                <th>Team 2</th>
+            </tr>
+            </thead>
+            <tbody>
+            <div th:each="game : ${championShip.getGames()}">
+                <tr>
+                    <td>
+                        <a href="team?id=" th:text="${game.getTeams().first.getName()}"></a>
+                    </td>
+                    <td>
+                        <span th:text="${game.getStadium().getName()}"></span>
+                    </td>
+                    <td>
+                        <span th:text="${game.getDate()}"></span>
+                    </td>
+                    <td>
+                        <a href="team?id=" th:text="${game.getTeams().get(1).getName()}"></a>
+                    </td>
+                </tr>
+            </div>
+            </tbody>
+        </table>
+    </div>
+</body>
