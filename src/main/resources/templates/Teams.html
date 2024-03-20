@@ -12,12 +12,19 @@
             <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Country</th>
+                <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="team : ${teams}" data-th-attr="data-url=@{/team?id=} + ${team.id}" onclick="navigateTo(event)">
-                    <td><a th:text="${team.name}"></a></td>
-                    <td><a th:text="${team.country.name}"></a></td>
+                <tr data-th-each="team : ${teams}" data-th-attr="data-url=@{/team?id=} + ${team.id}" onclick="navigateTo(event)">
+                    <td><a data-th-text="${team.name}"></a></td>
+                    <td><a data-th-text="${team.country.name}"></a></td>
+                    <td>
+                        <form action="/team/delete" method="post">
+                            <input type="hidden" name="id" data-th-value="${team.id}">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
                 </tr>
             </tbody>
         </table>

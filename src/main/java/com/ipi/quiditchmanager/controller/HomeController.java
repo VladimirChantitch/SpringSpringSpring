@@ -79,6 +79,12 @@ public class HomeController {
         return "redirect:/teams";
     }
 
+    @PostMapping("/team/delete")
+    public String updateTeamDetails(@RequestParam("id") Long id){
+        teamService.deleteById(id);
+        return "redirect:/teams";
+    }
+
     @GetMapping("/championships")
     public String championshipsPage(HttpSession session, ModelMap model) {
         model.addAttribute("loggedIn",

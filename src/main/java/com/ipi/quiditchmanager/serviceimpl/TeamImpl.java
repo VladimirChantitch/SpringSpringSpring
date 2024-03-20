@@ -1,6 +1,8 @@
 package com.ipi.quiditchmanager.serviceimpl;
 
+import com.ipi.quiditchmanager.dao.ChampionshipDao;
 import com.ipi.quiditchmanager.dao.CountryDao;
+import com.ipi.quiditchmanager.dao.MatchDao;
 import com.ipi.quiditchmanager.dao.TeamDao;
 import com.ipi.quiditchmanager.pojos.Country;
 import com.ipi.quiditchmanager.pojos.Team;
@@ -16,6 +18,10 @@ public class TeamImpl implements TeamService {
     private TeamDao teamDao;
     @Autowired
     private CountryDao countryDao;
+    @Autowired
+    private MatchDao matchDao;
+    @Autowired
+    private ChampionshipDao championshipDao;
     @Override
     public Team addTeam(Team team) {
         return teamDao.save(team);
@@ -40,6 +46,37 @@ public class TeamImpl implements TeamService {
         if (country != null)
             team.setCountry(country);
 
+        teamDao.save(team);
+    }
+    @Override
+    public void deleteById(Long id) {
+        Team team = teamDao.findById(id).get();
+
+        Country country = team.getCountry();
+        List<Team> countryTeams = country.getTeams();
+        countryTeams.remove((team));
+        country.setTeams(countryTeams);
+        countryDao.save(country);
+
+        team.getMatches().forEach(game -> {
+            List<Team> gameTeams = game.getTeams();
+            gameTeams.remove(team);
+            game.setTeams(gameTeams);
+            matchDao.save(game);
+        });
+
+        team.getChampionShips().forEach(championShip -> {
+            List<Team> champTeams = championShip.getTeams();
+            champTeams.remove(team);
+            championShip.setTeams(champTeams);
+            championshipDao.save(championShip);
+        });
+
+        teamDao.delete(team);
+    }
+
+    @Override
+    public void update(Team team) {
         teamDao.save(team);
     }
 }

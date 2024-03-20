@@ -123,5 +123,23 @@ public class LocalDBInitializerController {
         matchService.addMatch(quarter1Match);
         matchService.addMatch(quarter2Match);
         matchService.addMatch(quarter3Match);
+
+        quiberonQuafflePunchers.setMatches(Arrays.asList(quarter0Match));
+        barnton.setMatches(Arrays.asList(quarter0Match));
+        lancashire.setMatches(Arrays.asList(quarter1Match));
+        bigonVillebombers.setMatches(Arrays.asList(quarter1Match));
+        cork.setMatches(Arrays.asList(quarter2Match));
+        vratsaVultures.setMatches(Arrays.asList(quarter2Match));
+        karasjokKites.setMatches(Arrays.asList(quarter3Match));
+        karasjokKites.setMatches(Arrays.asList(quarter3Match));
+
+        teamService.update(quiberonQuafflePunchers);
+        teamService.update(barnton);
+        teamService.update(lancashire);
+        teamService.update(bigonVillebombers);
+        teamService.update(cork);
+        teamService.update(vratsaVultures);
+        teamService.update(karasjokKites);
+        teamService.update(beauxBatons);
     }
 }
