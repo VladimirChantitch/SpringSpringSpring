@@ -57,6 +57,26 @@ public class HomeController {
         return "Teams";
     }
 
+    @GetMapping("/team")
+    public String teamDetails(HttpSession session, ModelMap model, @RequestParam("id") Long id) {
+        model.addAttribute("loggedIn",
+                getLogged(session));
+        model.addAttribute("isActive", -1);
+        model.addAttribute("team", teamService.getTeamById(id));
+        model.addAttribute("countries", countryService.getCountries());
+
+        return "Team";
+    }
+
+    @PostMapping("/team/update")
+    public String updateTeamDetails(@RequestParam("id") Long id,
+                                    @RequestParam("name") String name,
+                                    @RequestParam("country") String country){
+
+        teamService.updateTeamDetails(id, name, country);
+        return "redirect:/teams";
+    }
+
     @GetMapping("/championships")
     public String championshipsPage(HttpSession session, ModelMap model) {
         model.addAttribute("loggedIn",

@@ -5,5 +5,30 @@
 </head>
 <body>
     <div class="container" data-th-insert="~{navbar-fragment}"></div>
+    <div class="container">
+        <h1>Team Identity Sheet</h1>
+        <form action="/team/update" method="post" data-th-object="${team}">
+            <input type="hidden" name="id" data-th-value="*{id}">
+            <div class="form-group">
+                <label for="name">Team Name:</label>
+                <input type="text" class="form-control" id="name" name="name"
+                       data-th-value="*{name}" data-th-readonly="${not loggedIn}">
+            </div>
+            <div class="form-group">
+                <label for="country">Country:</label>
+                <select class="form-control" id="country" name="country" data-th-value="*{country.name}" data-th-readonly="${not loggedIn}">
+                    <option data-th-each="country : ${countries}"
+                            data-th-value="${country.name}"
+                            data-th-selected="${team.country.name == country.name}">
+                        <span th:text="${country.name}"></span>
+                    </option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary" data-th-if="${loggedIn}">Submit</button>
+        </form>
+        <div data-th-unless="${loggedIn}">
+            <p>Please log in to edit team details.</p>
+        </div>
+    </div>
 </body>
 </html>

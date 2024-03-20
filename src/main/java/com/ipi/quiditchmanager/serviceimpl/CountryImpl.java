@@ -6,6 +6,8 @@ import com.ipi.quiditchmanager.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CountryImpl implements CountryService {
     @Autowired
@@ -13,5 +15,10 @@ public class CountryImpl implements CountryService {
     @Override
     public Country addCountry(Country country) {
         return  countryDao.save(country);
+    }
+
+    @Override
+    public List<Country> getCountries() {
+        return countryDao.findAll();
     }
 }
