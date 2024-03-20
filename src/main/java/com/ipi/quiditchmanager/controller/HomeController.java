@@ -107,6 +107,9 @@ public class HomeController {
         } else {
             model.addAttribute("error", "Invalid username or password");
             model.addAttribute("user", new User());
+            model.addAttribute("loggedIn",
+                    getLogged(session));
+            model.addAttribute("isActive", 4);
             return "Login";
         }
     }

@@ -12,7 +12,7 @@
             <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Country</th>
-                <th scope="col">Actions</th>
+                <th scope="col" data-th-if="${loggedIn}">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -20,7 +20,7 @@
                     <td><a data-th-text="${team.name}"></a></td>
                     <td><a data-th-text="${team.country.name}"></a></td>
                     <td>
-                        <form action="/team/delete" method="post">
+                        <form action="/team/delete" method="post" data-th-if="${loggedIn}">
                             <input type="hidden" name="id" data-th-value="${team.id}">
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
