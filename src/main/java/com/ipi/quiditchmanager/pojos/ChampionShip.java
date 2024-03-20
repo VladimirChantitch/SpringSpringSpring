@@ -23,11 +23,14 @@ public class ChampionShip {
     private String rankingType;
     private float bestGoldenSnitchCatchTime;
     private int maxQuaffleMarked;
-    @OneToMany
+    @ManyToMany
     private List<Country> participatingCountries;
 
     @ManyToMany
     private List<Team> teams;
+
+    @OneToMany
+    private List<Game> games;
 
     public String getName() {
         return name;
@@ -101,6 +104,14 @@ public class ChampionShip {
         this.teams = teams;
     }
 
+    public List<Game> getGames() {
+        return games;
+    }
+
+    public void setGames(List<Game> games) {
+        this.games = games;
+    }
+
     public ChampionShip() {
     }
 
@@ -112,7 +123,8 @@ public class ChampionShip {
                         float bestGoldenSnitchCatchTime,
                         int maxQuaffleMarked,
                         List<Country> participatingCountries,
-                        List<Team> teams) {
+                        List<Team> teams,
+                        List<Game> games) {
         this.name = name;
         this.logoFileName = logoFileName;
         this.startDate = startDate;
@@ -122,5 +134,6 @@ public class ChampionShip {
         this.maxQuaffleMarked = maxQuaffleMarked;
         this.participatingCountries = participatingCountries;
         this.teams = teams;
+        this.games = games;
     }
 }

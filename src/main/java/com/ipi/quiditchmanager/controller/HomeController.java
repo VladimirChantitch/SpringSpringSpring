@@ -85,14 +85,6 @@ public class HomeController {
         return "redirect:/teams";
     }
 
-    @GetMapping("/championships")
-    public String championshipsPage(HttpSession session, ModelMap model) {
-        model.addAttribute("loggedIn",
-                getLogged(session));
-        model.addAttribute("isActive", 2);
-        return "Championships";
-    }
-
     @GetMapping("/login")
     public String showLoginForm(HttpSession session, Model model) {
         model.addAttribute("loggedIn",
@@ -131,9 +123,6 @@ public class HomeController {
         if (date != null) {
             // Fetch games for the selected date
             games = matchService.getGamesByDate(date);
-            for (Game game : games){
-                System.out.println("Hello world  2"+game.getDate());
-            }
         } else {
             // If no date is selected, fetch all games
             games = matchService.getGames();
@@ -142,6 +131,38 @@ public class HomeController {
         return "Matches";
     }
 
+    //@GetMapping("/championships")
+    //public String championshipsPage(HttpSession session, Model model, @RequestParam(name = "championship", required = false) ChampionShip championship) {
+    //    model.addAttribute("loggedIn",
+    //            getLogged(session));
+    //    model.addAttribute("isActive", 2);
+    //    List<ChampionShip> champions = championshipService.getChampionShips();
+//
+    //    model.addAttribute("championShips", champions);
+    //    model.addAttribute("championShip", championship);
+    //    return "ChampionShips";
+    //}
+
+    @GetMapping("/championships")
+    public String championshipsPage(HttpSession session, Model model, @RequestParam(name = "championship", required = false) String championshipName) {
+        model.addAttribute("loggedIn", getLogged(session));
+        model.addAttribute("isActive", 2);
+        List<ChampionShip> champions = championshipService.getChampionShips();
+
+        ChampionShip selectedChampionship = champions.get(0);
+        if (championshipName != null) {
+            for (ChampionShip championShip : champions) {
+                if (championShip.getName().equals(championshipName)) {
+                    selectedChampionship = championShip;
+                    break;
+                }
+            }
+        }
+
+        model.addAttribute("championShips", champions);
+        model.addAttribute("championShip", selectedChampionship);
+        return "ChampionShips";
+    }
 
     private boolean getLogged(HttpSession session){
         User user = (User)session.getAttribute("user");
