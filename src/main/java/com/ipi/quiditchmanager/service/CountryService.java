@@ -8,4 +8,10 @@ public interface CountryService {
     Country addCountry(Country country);
 
     List<Country> getCountries();
+
+    void deleteById(Long id);
+
+    Country create();
+
+    void updateCountry(Long id, String countryName);
 }
