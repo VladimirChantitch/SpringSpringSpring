@@ -100,33 +100,16 @@ public class LocalDBInitializerController {
         norway.setTeams(Collections.singletonList(karasjokKites));
 
 // Create and persist matches
-        Game quarter0Match = new Game(trilleniumStadium, Arrays.asList(quiberonQuafflePunchers, barnton), new Date(2024, 6, 12));
-        Game quarter1Match = new Game(germanNational, Arrays.asList(lancashire, bigonVillebombers),new Date(2024, 6, 14));
-        Game quarter2Match = new Game(trilleniumStadium, Arrays.asList(cork, vratsaVultures), new Date(2024, 6, 16));
-        Game quarter3Match = new Game(germanNational, Arrays.asList(karasjokKites, beauxBatons), new Date(2024, 6, 18));
+        Game quarter0Match = new Game(trilleniumStadium, Arrays.asList(quiberonQuafflePunchers, barnton), new Date(2024, 6, 12), null);
+        Game quarter1Match = new Game(germanNational, Arrays.asList(lancashire, bigonVillebombers),new Date(2024, 6, 14), null);
+        Game quarter2Match = new Game(trilleniumStadium, Arrays.asList(cork, vratsaVultures), new Date(2024, 6, 16), null);
+        Game quarter3Match = new Game(germanNational, Arrays.asList(karasjokKites, beauxBatons), new Date(2024, 6, 18), null);
 
         matchService.addMatch(quarter0Match);
         matchService.addMatch(quarter1Match);
         matchService.addMatch(quarter2Match);
         matchService.addMatch(quarter3Match);
 
-        quiberonQuafflePunchers.setMatches(Arrays.asList(quarter0Match));
-        barnton.setMatches(Arrays.asList(quarter0Match));
-        lancashire.setMatches(Arrays.asList(quarter1Match));
-        bigonVillebombers.setMatches(Arrays.asList(quarter1Match));
-        cork.setMatches(Arrays.asList(quarter2Match));
-        vratsaVultures.setMatches(Arrays.asList(quarter2Match));
-        karasjokKites.setMatches(Arrays.asList(quarter3Match));
-        karasjokKites.setMatches(Arrays.asList(quarter3Match));
-
-        teamService.update(quiberonQuafflePunchers);
-        teamService.update(barnton);
-        teamService.update(lancashire);
-        teamService.update(bigonVillebombers);
-        teamService.update(cork);
-        teamService.update(vratsaVultures);
-        teamService.update(karasjokKites);
-        teamService.update(beauxBatons);
 // Create and persist championship
         ChampionShip europeChampionShip = new ChampionShip("Europ Quiditch Cup",
                 "europ_cup.logo",
@@ -162,6 +145,35 @@ public class LocalDBInitializerController {
         vratsaVultures.setChampionShips(Arrays.asList(europeChampionShip,derby));
         karasjokKites.setChampionShips(Arrays.asList(europeChampionShip,derby));
         karasjokKites.setChampionShips(Arrays.asList(europeChampionShip,derby));
+
+        teamService.update(quiberonQuafflePunchers);
+        teamService.update(barnton);
+        teamService.update(lancashire);
+        teamService.update(bigonVillebombers);
+        teamService.update(cork);
+        teamService.update(vratsaVultures);
+        teamService.update(karasjokKites);
+        teamService.update(beauxBatons);
+
+        quarter0Match.setChampionShip(europeChampionShip);
+        quarter1Match.setChampionShip(europeChampionShip);
+        quarter2Match.setChampionShip(derby);
+        quarter3Match.setChampionShip(derby);
+
+        matchService.updateGame(quarter0Match);
+        matchService.updateGame(quarter1Match);
+        matchService.updateGame(quarter2Match);
+        matchService.updateGame(quarter3Match);
+
+        //Teams
+        quiberonQuafflePunchers.setMatches(Arrays.asList(quarter0Match));
+        barnton.setMatches(Arrays.asList(quarter0Match));
+        lancashire.setMatches(Arrays.asList(quarter1Match));
+        bigonVillebombers.setMatches(Arrays.asList(quarter1Match));
+        cork.setMatches(Arrays.asList(quarter2Match));
+        vratsaVultures.setMatches(Arrays.asList(quarter2Match));
+        karasjokKites.setMatches(Arrays.asList(quarter3Match));
+        karasjokKites.setMatches(Arrays.asList(quarter3Match));
 
         teamService.update(quiberonQuafflePunchers);
         teamService.update(barnton);

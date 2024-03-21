@@ -4,6 +4,11 @@
 <body>
 <div class="container" data-th-insert="~{navbar-fragment}"></div>
 <div class="center-container">
+    <div class="container" data-th-if="${loggedIn}">
+        <form action="/match/create" method="post">
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+    </div>
             <div class="container">
                 <form th:action="@{/matches}" method="get">
                     <label for="date">Select Date:</label>
@@ -17,6 +22,7 @@
                             <th>Stadium</th>
                             <th>Date</th>
                             <th>Team 2</th>
+                            <th scope="col" data-th-if="${loggedIn}">Actions</th>
                         </tr>
                     </thead>
                 <tbody>
@@ -33,6 +39,12 @@
                             </td>
                             <td>
                                 <a data-th-attr="data-url=@{/team?id=} + ${game.getTeams().get(1).id}" onclick="navigateTo(event)" th:text="${game.getTeams().get(1).getName()}"></a>
+                            </td>
+                            <td>
+                                <form action="/matches/delete" method="post" data-th-if="${loggedIn}">
+                                    <input type="hidden" name="id" data-th-value="${game.getId()}">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
                             </td>
                         </tr>
                     </div>

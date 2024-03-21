@@ -20,4 +20,8 @@ public class ChampionShipImpl implements ChampionshipService {
     public List<ChampionShip> getChampionShips() {
         return  championshipDao.findAll();
     }
+    @Override
+    public ChampionShip getChampionShipByName(String name) {
+        return  championshipDao.findByName(name);
+    }
 }

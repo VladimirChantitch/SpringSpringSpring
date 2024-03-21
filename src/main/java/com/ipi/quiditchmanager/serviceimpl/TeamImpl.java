@@ -36,6 +36,10 @@ public class TeamImpl implements TeamService {
     public Team getTeamById(long id) {
         return teamDao.findById(id).get();
     }
+    @Override
+    public Team getTeamByName(String name) {
+        return teamDao.findByName(name);
+    }
 
     @Override
     public void updateTeamDetails(Long id, String teamName, String countryName) {
@@ -83,7 +87,7 @@ public class TeamImpl implements TeamService {
     @Override
     public void create(String name, String country) {
         Team team = new Team();
-        team.setName((name));
+        team.setName(name);
         team.setCountry(countryDao.findByName(country));
     }
 
