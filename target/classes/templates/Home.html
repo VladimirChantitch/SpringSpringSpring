@@ -3,8 +3,29 @@
 <head data-th-replace="~{bootstrap-fragment :: head}">
 
 </head>
-<h1>Hello world</h1>
 <body>
     <div class="container" data-th-insert="~{navbar-fragment}"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1>Welcome to Quiditch Champions</h1>
+                <p>This page will feature a quick tutorial and summary of the functionalities</p>
+                <h2>Features</h2>
+                <ul>
+                    <li>Back and front office depending on if the user is connected</li>
+                    <li>Possibility to administrate Teams, championship, matches and countries</li>
+                    <li>Possibility to just take a quick look as an unregistered user</li>
+                </ul>
+
+                <h2>Usage</h2>
+                <ul>
+                    <li>Use the navbar to navigate</li>
+                    <li>Click on login to log, you can log as Dobby the house-elve using the username : Chaussette and the password : 123</li>
+                    <li>To edit some data just click on what you wish to change whislt being connected</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div data-th-replace="footer-fragment :: footer"></div>
 </body>
 </html>

@@ -59,7 +59,7 @@ public class TeamImpl implements TeamService {
             country.setTeams(countryTeams);
             countryDao.save(country);
         }
-         
+
         team.getMatches().forEach(game -> {
             List<Team> gameTeams = game.getTeams();
             gameTeams.remove(team);
