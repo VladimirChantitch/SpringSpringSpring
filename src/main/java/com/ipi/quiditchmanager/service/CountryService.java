@@ -14,4 +14,6 @@ public interface CountryService {
     Country create();
 
     void updateCountry(Long id, String countryName);
+
+    void updateCountry(Country france);
 }

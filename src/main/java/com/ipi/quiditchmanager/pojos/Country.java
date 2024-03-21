@@ -19,6 +19,9 @@ public class Country {
     @OneToMany(mappedBy = "country")
     private List<Team> teams;
 
+    @ManyToMany
+    private List<ChampionShip> championShips;
+
     public Country(String name, String flagFileName, List<Team> teams) {
         this.name = name;
         this.flagFileName = flagFileName;
@@ -54,5 +57,13 @@ public class Country {
 
     public Long getId() {
         return id;
+    }
+
+    public List<ChampionShip> getChampionShips() {
+        return championShips;
+    }
+
+    public void setChampionShips(List<ChampionShip> championShips) {
+        this.championShips = championShips;
     }
 }

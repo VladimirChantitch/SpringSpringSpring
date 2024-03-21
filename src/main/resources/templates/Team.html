@@ -16,10 +16,11 @@
             </div>
             <div class="form-group">
                 <label for="country">Country:</label>
-                <select class="form-control" id="country" name="country" data-th-value="*{country.name}" data-th-readonly="${not loggedIn}">
-                    <option data-th-each="country : ${countries}"
-                            data-th-value="${country.name}"
-                            data-th-selected="${team.country.name == country.name}">
+                <select class="form-control" id="country" name="country" data-th-readonly="${not loggedIn}">
+                    <option th:if="${team.country == null}" value="">Select Country</option>
+                    <option th:each="country : ${countries}"
+                            th:value="${country.name}"
+                            th:selected="${team.country != null and team.country.name == country.name}">
                         <span th:text="${country.name}"></span>
                     </option>
                 </select>

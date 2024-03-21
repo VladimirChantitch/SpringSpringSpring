@@ -29,7 +29,9 @@
             <tbody>
                 <tr data-th-each="team : ${teams}" data-th-attr="data-url=@{/team?id=} + ${team.id}" onclick="navigateTo(event)">
                     <td><a data-th-text="${team.name}"></a></td>
-                    <td><a data-th-text="${team.country.name}"></a></td>
+                    <td>
+                        <a data-th-text="${team.country != null ? team.country.name : 'Unknown'}"></a>
+                    </td>
                     <td data-th-if="${loggedIn}">
                         <form action="/team/delete" method="post">
                             <input type="hidden" name="id" data-th-value="${team.id}">

@@ -53,11 +53,13 @@ public class TeamImpl implements TeamService {
         Team team = teamDao.findById(id).get();
 
         Country country = team.getCountry();
-        List<Team> countryTeams = country.getTeams();
-        countryTeams.remove((team));
-        country.setTeams(countryTeams);
-        countryDao.save(country);
-
+        if (team.getCountry() != null){
+            List<Team> countryTeams = country.getTeams();
+            countryTeams.remove((team));
+            country.setTeams(countryTeams);
+            countryDao.save(country);
+        }
+         
         team.getMatches().forEach(game -> {
             List<Team> gameTeams = game.getTeams();
             gameTeams.remove(team);

@@ -171,5 +171,19 @@ public class LocalDBInitializerController {
         teamService.update(vratsaVultures);
         teamService.update(karasjokKites);
         teamService.update(beauxBatons);
+
+        france.setChampionShips(Arrays.asList(europeChampionShip,derby));
+        england.setChampionShips(Arrays.asList(europeChampionShip,derby));
+        irland.setChampionShips(Arrays.asList(europeChampionShip,derby));
+        luxembourg.setChampionShips(Arrays.asList(europeChampionShip,derby));
+        bulgaria.setChampionShips(Arrays.asList(europeChampionShip,derby));
+        norway.setChampionShips(Arrays.asList(europeChampionShip,derby));
+
+        countryService.updateCountry(france);
+        countryService.updateCountry(england);
+        countryService.updateCountry(irland);
+        countryService.updateCountry(luxembourg);
+        countryService.updateCountry(bulgaria);
+        countryService.updateCountry(norway);
     }
 }
