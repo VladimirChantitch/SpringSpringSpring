@@ -49,54 +49,6 @@ public class HomeController {
         return "Home";
     }
 
-    @GetMapping("/teams")
-    public String teamsPage(HttpSession session, ModelMap model) {
-        model.addAttribute("loggedIn",
-                getLogged(session));
-        model.addAttribute("isActive", 1);
-        model.addAttribute("teams", teamService.getTeams());
-        //model.addAttribute("navActivatedId", 5);
-        return "Teams";
-    }
-
-    @GetMapping("/team")
-    public String teamDetails(HttpSession session, ModelMap model, @RequestParam("id") Long id) {
-        model.addAttribute("loggedIn",
-                getLogged(session));
-        model.addAttribute("isActive", -1);
-        if (id >= 0)
-            model.addAttribute("team", teamService.getTeamById(id));
-        else{
-            Team newTeam = teamService.create();
-            model.addAttribute("team", newTeam);
-        }
-        model.addAttribute("countries", countryService.getCountries());
-
-        return "Team";
-    }
-
-    @PostMapping("/team/update")
-    public String updateTeamDetails(@RequestParam("id") Long id,
-                                    @RequestParam("name") String name,
-                                    @RequestParam("country") String country){
-        if (id == -1)
-            teamService.create(name, country);
-        else
-            teamService.updateTeamDetails(id, name, country);
-        return "redirect:/teams";
-    }
-
-    @PostMapping("/team/delete")
-    public String updateTeamDetails(@RequestParam("id") Long id){
-        teamService.deleteById(id);
-        return "redirect:/teams";
-    }
-
-    @PostMapping("/team/create")
-    public String createTeam(){
-        return "redirect:/team?id=-1";
-    }
-
     @GetMapping("/login")
     public String showLoginForm(HttpSession session, Model model) {
         model.addAttribute("loggedIn",
@@ -142,18 +94,6 @@ public class HomeController {
         model.addAttribute("matches", games);
         return "Matches";
     }
-
-    //@GetMapping("/championships")
-    //public String championshipsPage(HttpSession session, Model model, @RequestParam(name = "championship", required = false) ChampionShip championship) {
-    //    model.addAttribute("loggedIn",
-    //            getLogged(session));
-    //    model.addAttribute("isActive", 2);
-    //    List<ChampionShip> champions = championshipService.getChampionShips();
-//
-    //    model.addAttribute("championShips", champions);
-    //    model.addAttribute("championShip", championship);
-    //    return "ChampionShips";
-    //}
 
     @GetMapping("/championships")
     public String championshipsPage(HttpSession session, Model model, @RequestParam(name = "championship", required = false) String championshipName) {
