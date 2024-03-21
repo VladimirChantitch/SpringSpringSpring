@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head data-th-replace="~{bootstrap-fragment :: head}">
+
+</head>
+<body>
+    <div class="container" data-th-insert="~{navbar-fragment}"></div>
+    <div class="container">
+        <h1>Match Identity Sheet</h1>
+        <form action="/match/update" method="post" data-th-object="${match}">
+            <input type="hidden" name="id" data-th-value="*{id}">
+            <label for="date">Select Date:</label>
+            <input type="date" id="date" name="date">
+            <div class="form-group">
+                <label for="teamName1">Team 1:</label>
+                <select class="form-control" id="teamName1" name="teamName1" data-th-value="${teams.get(0).name}" data-th-readonly="${not loggedIn}">
+                    <option th:each="team : ${teams}"
+                            th:value="${team.name}"
+                            th:selected="${team.name == match.teams.get(0).name}">
+                        <span th:text="${team.name}"></span>
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="teamName2">Team 2:</label>
+                <select class="form-control" id="teamName2" name="teamName2" data-th-value="${teams.get(1).name}" data-th-readonly="${not loggedIn}">
+                    <option th:each="team : ${teams}"
+                            th:value="${team.name}"
+                            th:selected="${team.name == match.teams.get(1).name}">
+                        <span th:text="${team.name}"></span>
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="stadeName">Stadium:</label>
+                <select class="form-control" id="stadeName" name="stadeName" data-th-value="*{stadium.name}" data-th-readonly="${not loggedIn}">
+                    <option th:each="stadium : ${stadiums}"
+                            th:value="${stadium.name}"
+                            th:selected="${stadium.name == match.stadium.name}">
+                        <span th:text="${stadium.name}"></span>
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="championShipName">Championship:</label>
+                <select class="form-control" id="championShipName" name="championShipName" data-th-value="*{championShip.name}" data-th-readonly="${not loggedIn}">
+                    <option th:each="championship : ${championships}"
+                            th:value="${championship.name}"
+                            th:selected="${championship.name == match.championShip.name}">
+                        <span th:text="${championship.name}"></span>
+                    </option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary" data-th-if="${loggedIn}">Submit</button>
+        </form>
+        <div data-th-unless="${loggedIn}">
+            <p>Please log in to edit team details.</p>
+        </div>
+    </div>
+    </body>
+</html>

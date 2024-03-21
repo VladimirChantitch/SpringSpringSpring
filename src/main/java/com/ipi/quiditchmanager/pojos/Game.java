@@ -16,8 +16,16 @@ public class Game {
     @ManyToMany
     private List<Team> teams;
 
+    @ManyToOne
+    private ChampionShip championShip;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
+
+    public Long getId() {
+        return id;
+    }
+
     public Stadium getStadium() {
         return stadium;
     }
@@ -45,9 +53,18 @@ public class Game {
         this.date = date;
     }
 
-    public Game(Stadium stadium, List<Team> teams, Date date) {
+    public ChampionShip getChampionShip() {
+        return championShip;
+    }
+
+    public void setChampionShip(ChampionShip championShip) {
+        this.championShip = championShip;
+    }
+
+    public Game(Stadium stadium, List<Team> teams, Date date, ChampionShip championShip) {
         this.stadium = stadium;
         this.teams = teams;
         this.date = date;
+        this.championShip = championShip;
     }
 }

@@ -9,6 +9,7 @@ public interface TeamService {
     List<Team> getTeams();
 
     Team getTeamById(long id);
+    Team getTeamByName(String name);
 
     void updateTeamDetails(Long id, String teamName, String countryName);
 

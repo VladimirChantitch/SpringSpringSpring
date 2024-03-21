@@ -94,4 +94,49 @@ public class HomeController {
         model.addAttribute("matches", games);
         return "Matches";
     }
+
+    @PostMapping("/matches/delete")
+    public String updateMatchesDetails(@RequestParam("id") Long id){
+        matchService.deleteById(id);
+        return "redirect:/matches";
+    }
+
+    @PostMapping("/match/create")
+    public String createMatch(){
+        return "redirect:/match?id=-1";
+    }
+    @GetMapping("/match")
+    public String matchDetails(HttpSession session, ModelMap model, @RequestParam("id") Long id) {
+        model.addAttribute("loggedIn",
+                userService.getIsLogged(session));
+        model.addAttribute("isActive", -1);
+        if (id >= 0)
+            model.addAttribute("match", matchService.getMatchById(id));
+        else{
+            Game newGame = matchService.create();
+            model.addAttribute("match", newGame);
+        }
+        model.addAttribute("teams", teamService.getTeams());
+        model.addAttribute("stadiums", stadiumService.getStadium());
+        model.addAttribute("championships", championshipService.getChampionShips());
+
+        return "Match";
+    }
+
+    @PostMapping("/match/update")
+    public String updateMatchDetails(@RequestParam("id") Long id,
+                                    @RequestParam(name = "date", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date date,
+                                    @RequestParam("teamName1") String teamName1,
+                                    @RequestParam("teamName2") String teamName2,
+                                    @RequestParam("stadeName") String stadeName,
+                                    @RequestParam("championShipName") String championShipName){
+        Team team1 = teamService.getTeamByName(teamName1);
+        Team team2 = teamService.getTeamByName(teamName2);
+        Stadium stade = stadiumService.findStadiumByName(stadeName);
+        ChampionShip championShip = championshipService.getChampionShipByName(championShipName);
+
+        matchService.updateTeamDetails(id, date, team1, team2, stade, championShip);
+
+        return "redirect:/ChampionShips";
+    }
 }

@@ -9,4 +9,6 @@ public interface ChampionshipService {
     ChampionShip addChampionship(ChampionShip championShip);
 
     List<ChampionShip> getChampionShips();
+
+    ChampionShip getChampionShipByName(String name);
 }
