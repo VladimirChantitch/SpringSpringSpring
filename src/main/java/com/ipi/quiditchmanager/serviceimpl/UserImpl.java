@@ -4,6 +4,7 @@ import com.ipi.quiditchmanager.dao.UserDao;
 import com.ipi.quiditchmanager.pojos.User;
 import com.ipi.quiditchmanager.service.ChampionshipService;
 import com.ipi.quiditchmanager.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +24,11 @@ public class UserImpl implements UserService {
             if (user.getPassword().equals(password.trim()))
                 return user;
         return null;
+    }
+
+    @Override
+    public boolean getIsLogged(HttpSession session) {
+        User user = (User)session.getAttribute("user");
+        return user != null;
     }
 }

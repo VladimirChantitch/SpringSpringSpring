@@ -44,17 +44,17 @@ public class TeamController {
     @GetMapping("/teams")
     public String teamsPage(HttpSession session, ModelMap model) {
         model.addAttribute("loggedIn",
-                getLogged(session));
+                userService.getIsLogged(session));
         model.addAttribute("isActive", 1);
         model.addAttribute("teams", teamService.getTeams());
-        //model.addAttribute("navActivatedId", 5);
+
         return "Teams";
     }
 
     @GetMapping("/team")
     public String teamDetails(HttpSession session, ModelMap model, @RequestParam("id") Long id) {
         model.addAttribute("loggedIn",
-                getLogged(session));
+                userService.getIsLogged(session));
         model.addAttribute("isActive", -1);
         if (id >= 0)
             model.addAttribute("team", teamService.getTeamById(id));
@@ -75,23 +75,19 @@ public class TeamController {
             teamService.create(name, country);
         else
             teamService.updateTeamDetails(id, name, country);
+
         return "redirect:/teams";
     }
 
     @PostMapping("/team/delete")
     public String updateTeamDetails(@RequestParam("id") Long id){
         teamService.deleteById(id);
+
         return "redirect:/teams";
     }
 
     @PostMapping("/team/create")
     public String createTeam(){
         return "redirect:/team?id=-1";
-    }
-
-
-    private boolean getLogged(HttpSession session){
-        User user = (User)session.getAttribute("user");
-        return user != null;
     }
 }

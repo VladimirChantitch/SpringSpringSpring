@@ -51,4 +51,8 @@ public class Country {
     public void setTeams(List<Team> teams) {
         this.teams = teams;
     }
+
+    public Long getId() {
+        return id;
+    }
 }

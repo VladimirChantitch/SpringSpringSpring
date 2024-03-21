@@ -44,7 +44,7 @@ public class HomeController {
     @GetMapping(value = "/")
     public String home(HttpSession session, ModelMap model) {
         model.addAttribute("loggedIn",
-                getLogged(session));
+                userService.getIsLogged(session));
         model.addAttribute("isActive", 0);
         return "Home";
     }
@@ -52,7 +52,7 @@ public class HomeController {
     @GetMapping("/login")
     public String showLoginForm(HttpSession session, Model model) {
         model.addAttribute("loggedIn",
-                getLogged(session));
+                userService.getIsLogged(session));
         model.addAttribute("isActive", 4);
         model.addAttribute("user", new User());
         return "Login";
@@ -72,7 +72,7 @@ public class HomeController {
             model.addAttribute("error", "Invalid username or password");
             model.addAttribute("user", new User());
             model.addAttribute("loggedIn",
-                    getLogged(session));
+                    userService.getIsLogged(session));
             model.addAttribute("isActive", 4);
             return "Login";
         }
@@ -81,7 +81,7 @@ public class HomeController {
     @GetMapping("/matches")
     public String showMatches(HttpSession session, Model model, @RequestParam(name = "date", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date date) {
         model.addAttribute("loggedIn",
-                getLogged(session));
+                userService.getIsLogged(session));
         model.addAttribute("isActive", 3);
         List<Game> games;
         if (date != null) {
@@ -93,31 +93,5 @@ public class HomeController {
         }
         model.addAttribute("matches", games);
         return "Matches";
-    }
-
-    @GetMapping("/championships")
-    public String championshipsPage(HttpSession session, Model model, @RequestParam(name = "championship", required = false) String championshipName) {
-        model.addAttribute("loggedIn", getLogged(session));
-        model.addAttribute("isActive", 2);
-        List<ChampionShip> champions = championshipService.getChampionShips();
-
-        ChampionShip selectedChampionship = champions.get(0);
-        if (championshipName != null) {
-            for (ChampionShip championShip : champions) {
-                if (championShip.getName().equals(championshipName)) {
-                    selectedChampionship = championShip;
-                    break;
-                }
-            }
-        }
-
-        model.addAttribute("championShips", champions);
-        model.addAttribute("championShip", selectedChampionship);
-        return "ChampionShips";
-    }
-
-    private boolean getLogged(HttpSession session){
-        User user = (User)session.getAttribute("user");
-        return user != null;
     }
 }

@@ -117,7 +117,7 @@ public class LocalDBInitializerController {
         cork.setMatches(Arrays.asList(quarter2Match));
         vratsaVultures.setMatches(Arrays.asList(quarter2Match));
         karasjokKites.setMatches(Arrays.asList(quarter3Match));
-        karasjokKites.setMatches(Arrays.asList(quarter3Match));
+        beauxBatons.setMatches(Arrays.asList(quarter3Match));
 
         teamService.update(quiberonQuafflePunchers);
         teamService.update(barnton);
@@ -161,7 +161,7 @@ public class LocalDBInitializerController {
         cork.setChampionShips(Arrays.asList(europeChampionShip,derby));
         vratsaVultures.setChampionShips(Arrays.asList(europeChampionShip,derby));
         karasjokKites.setChampionShips(Arrays.asList(europeChampionShip,derby));
-        karasjokKites.setChampionShips(Arrays.asList(europeChampionShip,derby));
+        beauxBatons.setChampionShips(Arrays.asList(europeChampionShip,derby));
 
         teamService.update(quiberonQuafflePunchers);
         teamService.update(barnton);
